@@ -12,15 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+<<<<<<< Updated upstream
 const amqplib_1 = __importDefault(require("amqplib"));
 const rabbitmq_url = "amqp://user:password@infoexpertise.hopto.org:5680";
+=======
+const connection_rabbitmq_1 = __importDefault(require("../utils/connection_rabbitmq"));
+>>>>>>> Stashed changes
 const mathRandom1 = Math.floor(Math.random() * 100);
 const mathRandom2 = Math.floor(Math.random() * 100);
 function AddProducer() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const connection = yield amqplib_1.default.connect(rabbitmq_url);
-            const channel = yield connection.createChannel();
+            const channel = yield (0, connection_rabbitmq_1.default)();
             const queue = "additionnalOperationQueue";
             yield channel.assertQueue(queue, { durable: true });
             setInterval(() => {

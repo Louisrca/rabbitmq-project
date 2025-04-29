@@ -1,13 +1,10 @@
-import amqtplib from "amqplib";
-
-const rabbitmq_url = "amqp://user:password@infoexpertise.hopto.org:5680";
+import connection_rabbitmq from "../utils/connection_rabbitmq";
 const mathRandom1 = Math.floor(Math.random() * 100);
 const mathRandom2 = Math.floor(Math.random() * 100);
 
 async function AddProducer() {
   try {
-    const connection = await amqtplib.connect(rabbitmq_url);
-    const channel = await connection.createChannel();
+    const channel = await connection_rabbitmq();
     const queue = "additionnalOperationQueue";
 
     await channel.assertQueue(queue, { durable: true });
