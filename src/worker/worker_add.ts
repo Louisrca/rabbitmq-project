@@ -37,4 +37,4 @@ async function receive(){
         console.log("Le Worker à fait son taff");
     });
 }
-receive();
+export default receive;

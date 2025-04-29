@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const amqplib_1 = __importDefault(require("amqplib"));
-const rabbitmq_url = "amqp://user:password@localhost:5672";
+const rabbitmq_url = "amqp://user:password@infoexpertise.hopto.org:5680";
 const mathRandom1 = Math.floor(Math.random() * 100);
 const mathRandom2 = Math.floor(Math.random() * 100);
 function AddProducer() {

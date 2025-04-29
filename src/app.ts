@@ -1,5 +1,5 @@
 import AddProducer from "./producer/AddProducter";
-import receive from "./worker/worker1";
+import receive from "./worker/worker_add";
 import OutputConsumer from "./consumer/OutputConsumer";
 import { argv } from "process";
 

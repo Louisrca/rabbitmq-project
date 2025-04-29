@@ -1,6 +1,6 @@
 import amqtplib from "amqplib";
 
-const rabbitmq_url = "amqp://user:password@localhost:5672";
+const rabbitmq_url = "amqp://user:password@infoexpertise.hopto.org:5680";
 const mathRandom1 = Math.floor(Math.random() * 100);
 const mathRandom2 = Math.floor(Math.random() * 100);
 

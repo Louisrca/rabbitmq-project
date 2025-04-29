@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const AddProducter_1 = __importDefault(require("./producer/AddProducter"));
-const worker1_1 = __importDefault(require("./worker/worker1"));
+const worker_add_1 = __importDefault(require("./worker/worker_add"));
 const OutputConsumer_1 = __importDefault(require("./consumer/OutputConsumer"));
 const process_1 = require("process");
 const args = process_1.argv.slice(2);
@@ -16,7 +16,7 @@ switch (args[0]) {
         break;
     case "consumer":
         console.log("Starting consumer");
-        (0, worker1_1.default)();
+        (0, worker_add_1.default)();
         break;
     case "outputConsumer":
         console.log("Starting output consumer");
