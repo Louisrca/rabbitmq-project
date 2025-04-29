@@ -17,7 +17,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 function connection_rabbitmq() {
     return __awaiter(this, void 0, void 0, function* () {
-        const rabbitmq_url = `amqp://${process.env.RABBITMQ_USER}:${process.env.RABBITMQ_PASSWORD}@infoexpertise.hopto.org:5680`;
+        const rabbitmq_url = process.env.RABBITMQ_URL_DEV;
         const connection = yield amqplib_1.default.connect(rabbitmq_url);
         const channel = yield connection.createChannel();
         return channel;

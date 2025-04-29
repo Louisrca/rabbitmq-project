@@ -12,22 +12,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const amqplib_1 = __importDefault(require("amqplib"));
+const connection_rabbitmq_1 = __importDefault(require("../utils/connection_rabbitmq"));
 function OutputConsumer() {
     return __awaiter(this, void 0, void 0, function* () {
-        const rabbitmq_url = "amqp://user:password@localhost:5672";
-        const connection = yield amqplib_1.default.connect(rabbitmq_url);
-        const channel = yield connection.createChannel();
-        const queue_resultat = "ResultatQueue";
-        yield channel.assertQueue(queue_resultat, { durable: true });
-        channel.consume(queue_resultat, (message) => {
-            if (message != null) {
-                const content = JSON.parse(message.content.toString());
-                const { n1, n2, op, result } = content;
-                console.log(`Le résultat de ${n1} ${op} ${n2} est ${result}`);
-            }
-        });
-        console.log("Le Consumer est en attente de messages...");
+        const channel = yield (0, connection_rabbitmq_1.default)();
+        const queue_resultat = "ResultatQueueAddition";
+        try {
+            yield channel.assertQueue(queue_resultat, { durable: true });
+            channel.consume(queue_resultat, (message) => {
+                if (message != null) {
+                    const content = JSON.parse(message.content.toString());
+                    const { n1, n2, op, result } = content;
+                    console.log(`Le résultat de ${n1} ${op} ${n2} est ${result}`);
+                    channel.ack(message);
+                }
+            });
+            console.log("Le Consumer est en attente de messages...");
+        }
+        catch (error) {
+            console.error("Erreur lors de la consommation des résultats:", error);
+        }
     });
 }
 exports.default = OutputConsumer;

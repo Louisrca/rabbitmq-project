@@ -1,24 +1,30 @@
 import connection_rabbitmq from "../utils/connection_rabbitmq";
-const mathRandom1 = Math.floor(Math.random() * 100);
-const mathRandom2 = Math.floor(Math.random() * 100);
+import { argv } from "process";
 
 async function AddProducer() {
+  const args = argv.slice(3);
+
   try {
     const channel = await connection_rabbitmq();
-    const queue = "additionnalOperationQueue";
+    const exchange = "operationExchange";
 
-    await channel.assertQueue(queue, { durable: true });
+    await channel.assertExchange(exchange, "topic", { durable: true });
 
     setInterval(() => {
       const clientNumber = {
         n1: Math.floor(Math.random() * 100),
         n2: Math.floor(Math.random() * 100),
       };
-      channel.sendToQueue(queue, Buffer.from(JSON.stringify(clientNumber)), {
-        persistent: true,
-      });
+      channel.publish(
+        exchange,
+        args[0],
+        Buffer.from(JSON.stringify(clientNumber)),
+        {
+          persistent: true,
+        }
+      );
       console.log(
-        `Producer is running and sending number to the queue: ${JSON.stringify(
+        `Producer is running and sending numbers to the queue: ${JSON.stringify(
           clientNumber
         )}`
       );

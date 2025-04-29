@@ -12,29 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-<<<<<<< Updated upstream
-const amqplib_1 = __importDefault(require("amqplib"));
-const rabbitmq_url = "amqp://user:password@infoexpertise.hopto.org:5680";
-=======
 const connection_rabbitmq_1 = __importDefault(require("../utils/connection_rabbitmq"));
->>>>>>> Stashed changes
-const mathRandom1 = Math.floor(Math.random() * 100);
-const mathRandom2 = Math.floor(Math.random() * 100);
+const process_1 = require("process");
 function AddProducer() {
     return __awaiter(this, void 0, void 0, function* () {
+        const args = process_1.argv.slice(3);
         try {
             const channel = yield (0, connection_rabbitmq_1.default)();
-            const queue = "additionnalOperationQueue";
-            yield channel.assertQueue(queue, { durable: true });
+            const exchange = "operationExchange";
+            yield channel.assertExchange(exchange, "topic", { durable: true });
             setInterval(() => {
                 const clientNumber = {
                     n1: Math.floor(Math.random() * 100),
                     n2: Math.floor(Math.random() * 100),
                 };
-                channel.sendToQueue(queue, Buffer.from(JSON.stringify(clientNumber)), {
+                channel.publish(exchange, args[0], Buffer.from(JSON.stringify(clientNumber)), {
                     persistent: true,
                 });
-                console.log(`Producer is running and sending number to the queue: ${JSON.stringify(clientNumber)}`);
+                console.log(`Producer is running and sending numbers to the queue: ${JSON.stringify(clientNumber)}`);
             }, 5000);
         }
         catch (error) {

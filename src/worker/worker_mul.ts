@@ -1,40 +1,43 @@
-import amqtplib from "amqplib";
+import connection_rabbitmq from "../utils/connection_rabbitmq";
+async function receive() {
+  const channel = await connection_rabbitmq();
+  const queue_requete = "operationQueue";
+  const queue_resultat = "ResultatQueue";
+  const exchange = "operationExchange";
 
-const rabbitmq_url = "amqp://user:password@localhost:5672";
+  await channel.assertExchange(exchange, "topic", { durable: true });
+  await channel.assertQueue(queue_requete, { durable: true });
+  await channel.bindQueue(queue_requete, exchange, "operation.mul");
 
-async function receive(){
-    const connection = await amqtplib.connect(rabbitmq_url);
-    const channel = await connection.createChannel();
-    const queue_requete = "additionnalOperationQueue";
-    const queue_resultat = "ResultatQueueMultiplication";
-    const exchange = "operations";
+  await channel.assertQueue(queue_resultat, { durable: true });
 
-    await channel.assertExchange(exchange, 'topic', {durable: true});
-    await channel.assertQueue(queue_requete, {durable: true});
-    await channel.bindQueue(queue_requete, exchange, 'mul');
+  channel.consume(queue_requete, async (message) => {
+    if (message != null) {
+      const content = JSON.parse(message.content.toString());
+      const { n1, n2 } = content;
+      console.log(`Calcul de ${n1} * ${n2}`);
 
-    await channel.assertQueue(queue_resultat, {durable: true});
+      const randomDelay = Math.floor(Math.random() * 10000) + 5000;
+      console.log(
+        `Délai avant de renvoyer le résultat: ${randomDelay / 1000} secondes`
+      );
 
-    channel.consume(queue_requete, async(message) => {
-        if(message !=null) {
-            const content = JSON.parse(message.content.toString());
-            const { n1, n2 } = content; 
-            console.log(`Calcul de ${n1} * ${n2}`);       
-    
-            const randomDelay = Math.floor(Math.random() * 10000) + 5000;
-            await new Promise(resolve => setTimeout(resolve, randomDelay));
-            
-            const result = n1 * n2;
-            const resultMessage = {
-                n1,
-                n2,
-                op: "mul",
-                result
-            };
-            channel.sendToQueue(queue_resultat, Buffer.from(JSON.stringify(resultMessage)));
-            channel.ack(message);
-        }
-        console.log("Le Worker à fait son taff");
-    });
+      await new Promise((resolve) => setTimeout(resolve, randomDelay));
+
+      const result = n1 * n2;
+      const resultMessage = {
+        n1,
+        n2,
+        op: "mul",
+        result,
+      };
+      channel.sendToQueue(
+        queue_resultat,
+        Buffer.from(JSON.stringify(resultMessage))
+      );
+      channel.ack(message);
+    }
+    console.log("Le Worker à fait son taff");
+  });
 }
 export default receive;
