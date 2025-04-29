@@ -13,51 +13,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const amqplib_1 = __importDefault(require("amqplib"));
-const rabbitmq_url = "amqp://user:password@localhost:5672";
-function receive() {
+function OutputConsumer() {
     return __awaiter(this, void 0, void 0, function* () {
+        const rabbitmq_url = "amqp://user:password@localhost:5672";
         const connection = yield amqplib_1.default.connect(rabbitmq_url);
         const channel = yield connection.createChannel();
-        const queue_requete = "additionnalOperationQueue";
         const queue_resultat = "ResultatQueue";
-        yield channel.assertQueue(queue_requete, { durable: true });
         yield channel.assertQueue(queue_resultat, { durable: true });
-        channel.consume(queue_requete, (message) => __awaiter(this, void 0, void 0, function* () {
+        channel.consume(queue_resultat, (message) => {
             if (message != null) {
                 const content = JSON.parse(message.content.toString());
-                const { n1, n2 } = content;
-                console.log(`Calcul de ${n1} + ${n2}`);
-                const result = n1 + n2;
-                const resultMessage = {
-                    n1,
-                    n2,
-                    op: "add",
-                    result,
-                };
-                channel.sendToQueue(queue_resultat, Buffer.from(JSON.stringify(resultMessage)));
+                const { n1, n2, op, result } = content;
+                console.log(`Le résultat de ${n1} ${op} ${n2} est ${result}`);
             }
-            console.log("Le Worker à fait son taff");
-        }));
+        });
+        console.log("Le Consumer est en attente de messages...");
     });
 }
-exports.default = receive;
-/*
-function consume(message){
-    if(message !=null) {
-        const content = JSON.parse(message.content.toString());
-        const { n1, n2 } = content;
-        console.log(`Calcul de ${n1} + ${n2}`);
-
-        const result = n1 + n2;
-        const resultMessage = {
-            n1,
-            n2,
-            op: "add",
-            result
-        };
-
-        channel.sendToQueue(queue_resultat, Buffer.from(JSON.stringify(resultMessage)));
-
-    }
-}*/
-//# sourceMappingURL=worker1.js.map
+exports.default = OutputConsumer;
+//# sourceMappingURL=OutputConsumer.js.map

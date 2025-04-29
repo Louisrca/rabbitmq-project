@@ -14,10 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const amqplib_1 = __importDefault(require("amqplib"));
 const rabbitmq_url = "amqp://user:password@localhost:5672";
-const clientNumber = {
-    n1: 1,
-    n2: 2,
-};
+const mathRandom1 = Math.floor(Math.random() * 100);
+const mathRandom2 = Math.floor(Math.random() * 100);
 function AddProducer() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -26,6 +24,10 @@ function AddProducer() {
             const queue = "additionnalOperationQueue";
             yield channel.assertQueue(queue, { durable: true });
             setInterval(() => {
+                const clientNumber = {
+                    n1: Math.floor(Math.random() * 100),
+                    n2: Math.floor(Math.random() * 100),
+                };
                 channel.sendToQueue(queue, Buffer.from(JSON.stringify(clientNumber)), {
                     persistent: true,
                 });

@@ -1,11 +1,8 @@
 import amqtplib from "amqplib";
 
 const rabbitmq_url = "amqp://user:password@localhost:5672";
-
-const clientNumber = {
-  n1: 1,
-  n2: 2,
-};
+const mathRandom1 = Math.floor(Math.random() * 100);
+const mathRandom2 = Math.floor(Math.random() * 100);
 
 async function AddProducer() {
   try {
@@ -16,6 +13,10 @@ async function AddProducer() {
     await channel.assertQueue(queue, { durable: true });
 
     setInterval(() => {
+      const clientNumber = {
+        n1: Math.floor(Math.random() * 100),
+        n2: Math.floor(Math.random() * 100),
+      };
       channel.sendToQueue(queue, Buffer.from(JSON.stringify(clientNumber)), {
         persistent: true,
       });
