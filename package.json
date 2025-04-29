@@ -12,5 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.7"
   }
 }
