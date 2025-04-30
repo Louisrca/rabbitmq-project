@@ -1,4 +1,4 @@
-import AddProducer from "./producer/InputProducter";
+import InputProducer from "./producer/InputProducer";
 import AddWorker from "./worker/worker_add";
 import SubWorker from "./worker/worker_sub";
 import MulWorker from "./worker/worker_mul";
@@ -13,7 +13,7 @@ console.log("args:", args);
 switch (args[0]) {
   case "producer":
     console.log("Starting producer");
-    AddProducer();
+    InputProducer();
     break;
   case "consumers":
     console.log("Starting consumers");

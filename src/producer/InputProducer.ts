@@ -9,7 +9,7 @@ interface ClientNumber {
   n2: number;
 }
 
-async function AddProducer(): Promise<void> {
+async function InputProducer(): Promise<void> {
   const args: string[] = argv.slice(3);
   const operations: Operation[] = ["add", "sub", "mul", "div"];
   const exchange = "operationExchange";
@@ -56,4 +56,4 @@ async function AddProducer(): Promise<void> {
   }
 }
 
-export default AddProducer;
+export default InputProducer;
