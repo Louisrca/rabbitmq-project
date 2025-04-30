@@ -22,11 +22,15 @@ Ce projet simule un système de calcul distribué basé sur RabbitMQ. Des client
 ### Étapes d'installation
 
 1. Cloner le dépôt :
+```bash
 git clone https://github.com/Louisrca/rabbitmq-project.git
 cd rabbitmq-project
+```
 
 2. Installer les dépendances :
+```bash
 npm install
+```
 
 Interface Web RabbitMQ : http://localhost:15672  
 
@@ -36,13 +40,19 @@ Mot de passe : password
 ### Lancement des composants
 
 1. **Démarrer le producteur** (client d'entrée) :
+```bash
 npm run dev producer add
+```
 
-2. **Démarrer les workers** (traitement des opérations) :
+3. **Démarrer les workers** (traitement des opérations) :
+```bash
 npm run dev consumers
+```
 
-3. **Démarrer le consommateur de sortie** (affichage des résultats) :
+5. **Démarrer le consommateur de sortie** (affichage des résultats) :
+```bash
 npm run dev OutputConsumer
+```
 
 ## Utilisation des composants
 
