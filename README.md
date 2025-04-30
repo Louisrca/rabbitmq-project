@@ -1,4 +1,5 @@
 # Système de Calcul Distribué avec RabbitMQ & TypeScript
+Louis ROCCA - Nicolas BELLANGER - Yanis ARAR
 
 ## Objectif du projet
 
@@ -16,7 +17,7 @@ Ce projet simule un système de calcul distribué basé sur RabbitMQ. Des client
 
 ### Prérequis
 - Node.js
-- Docker et Docker Compose
+- Docker et Docker Compose ( non utilisable )
 
 ### Étapes d'installation
 
@@ -26,9 +27,6 @@ cd rabbitmq-project
 
 2. Installer les dépendances :
 npm install
-
-3. Lancer RabbitMQ via Docker :
-docker-compose up -d
 
 Interface Web RabbitMQ : http://localhost:15672  
 
