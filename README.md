@@ -38,6 +38,7 @@ Identifiants : user
 Mot de passe : password
 
 ### Lancement des composants
+Ouvrir 3 terminaux, afin de pouvoir lancer les 3 instances de rabbitmq en simultané.
 
 1. **Démarrer le producteur** (client d'entrée) :
 ```bash
