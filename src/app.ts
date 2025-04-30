@@ -1,4 +1,4 @@
-import AddProducer from "./producer/AddProducter";
+import AddProducer from "./producer/InputProducter";
 import AddWorker from "./worker/worker_add";
 import SubWorker from "./worker/worker_sub";
 import MulWorker from "./worker/worker_mul";
