@@ -50,9 +50,6 @@ npm install
 
 Interface Web RabbitMQ : [infoexpertise.hopto.org:15680](http://infoexpertise.hopto.org:15680)
 
-- Identifiants : user
-- Mot de passe : password
-
 ### Lancement des composants
 Ouvrir 3 terminaux, afin de pouvoir lancer les 3 instances de rabbitmq en simultané.
 
