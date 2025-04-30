@@ -26,6 +26,8 @@ switch (args[0]) {
     console.log("Starting output consumer");
     OutputConsumer();
   default:
-    console.log("Please provide a valid argument: producer or consumer");
+    console.log(
+      "Please provide a valid argument: producer, consumer or outputConsumer"
+    );
     break;
 }
