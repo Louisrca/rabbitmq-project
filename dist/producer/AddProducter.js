@@ -12,25 +12,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const amqplib_1 = __importDefault(require("amqplib"));
-const rabbitmq_url = "amqp://user:password@localhost:5672";
-const clientNumber = {
-    n1: 1,
-    n2: 2,
-};
+const connection_rabbitmq_1 = __importDefault(require("../utils/connection_rabbitmq"));
+const process_1 = require("process");
 function AddProducer() {
     return __awaiter(this, void 0, void 0, function* () {
+        // Récupère l'argument de la ligne de commande à partir de la 4e position
+        const args = process_1.argv.slice(3);
+        const operations = ["add", "sub", "mul", "div"];
+        const exchange = "operationExchange";
         try {
-            const connection = yield amqplib_1.default.connect(rabbitmq_url);
-            const channel = yield connection.createChannel();
-            const queue = "additionnalOperationQueue";
-            yield channel.assertQueue(queue, { durable: true });
+            const channel = yield (0, connection_rabbitmq_1.default)();
+            // Déclare un échange de type 'topic'
+            yield channel.assertExchange(exchange, "topic", { durable: true });
+            // Exécute une publication toutes les 2 secondes
             setInterval(() => {
-                channel.sendToQueue(queue, Buffer.from(JSON.stringify(clientNumber)), {
-                    persistent: true,
-                });
-                console.log(`Producer is running and sending number to the queue: ${JSON.stringify(clientNumber)}`);
-            }, 5000);
+                // Génère deux nombres aléatoires
+                const clientNumber = {
+                    n1: Math.floor(Math.random() * 100),
+                    n2: Math.floor(Math.random() * 100),
+                };
+                // Détermine la clé de routage : argument CLI valide ou choisi aléatoirement
+                const operation = args.length > 0 && operations.includes(args[0])
+                    ? args[0]
+                    : operations[Math.floor(Math.random() * operations.length)];
+                const routingKey = `operation.${operation}`;
+                // Publication du message
+                channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(clientNumber)), { persistent: true });
+                // Log de debug
+                console.log(`Sent to '${routingKey}':`, clientNumber);
+            }, 2000);
         }
         catch (error) {
             console.error("Error connecting to RabbitMQ:", error);
