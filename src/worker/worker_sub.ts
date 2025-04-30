@@ -1,10 +1,7 @@
-import amqtplib from "amqplib";
-
-const rabbitmq_url = "amqp://user:password@localhost:5672";
+import connection_rabbitmq from "../utils/connection_rabbitmq";
 
 async function SubWorker() {
-  const connection = await amqtplib.connect(rabbitmq_url);
-  const channel = await connection.createChannel();
+  const channel = await connection_rabbitmq();
   const queue_requete = "operationQueueSub";
   const queue_resultat = "ResultQueue";
   const exchange = "operationExchange";
