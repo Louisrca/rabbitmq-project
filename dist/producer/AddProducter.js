@@ -39,11 +39,11 @@ function AddProducer() {
                 // Publication du message
                 channel.publish(exchange, routingKey, Buffer.from(JSON.stringify(clientNumber)), { persistent: true });
                 // Log de debug
-                console.log(`➡️ Sent to '${routingKey}':`, clientNumber);
+                console.log(`Sent to '${routingKey}':`, clientNumber);
             }, 2000);
         }
         catch (error) {
-            console.error("❌ Error connecting to RabbitMQ:", error);
+            console.error("Error connecting to RabbitMQ:", error);
         }
     });
 }

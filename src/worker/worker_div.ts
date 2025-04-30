@@ -24,7 +24,7 @@ async function DivWorker() {
 
       await new Promise((resolve) => setTimeout(resolve, randomDelay));
 
-      const result = n1 / n2;
+      const result = n2 !== 0 ? n1 / n2 : "Erreur: division par 0";
       const resultMessage = {
         n1,
         n2,

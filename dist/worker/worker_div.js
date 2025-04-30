@@ -31,7 +31,7 @@ function DivWorker() {
                 const randomDelay = Math.floor(Math.random() * 10000) + 5000;
                 console.log(`Délai avant de renvoyer le résultat: ${randomDelay / 1000} secondes`);
                 yield new Promise((resolve) => setTimeout(resolve, randomDelay));
-                const result = n1 / n2;
+                const result = n2 !== 0 ? n1 / n2 : "Erreur: division par 0";
                 const resultMessage = {
                     n1,
                     n2,
