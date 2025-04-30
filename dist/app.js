@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const AddProducter_1 = __importDefault(require("./producer/AddProducter"));
+const InputProducter_1 = __importDefault(require("./producer/InputProducter"));
 const worker_add_1 = __importDefault(require("./worker/worker_add"));
 const worker_sub_1 = __importDefault(require("./worker/worker_sub"));
 const worker_mul_1 = __importDefault(require("./worker/worker_mul"));
@@ -15,7 +15,7 @@ console.log("args:", args);
 switch (args[0]) {
     case "producer":
         console.log("Starting producer");
-        (0, AddProducter_1.default)();
+        (0, InputProducter_1.default)();
         break;
     case "consumers":
         console.log("Starting consumers");
