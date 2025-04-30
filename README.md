@@ -31,12 +31,14 @@ npm install
 docker-compose up -d
 
 Interface Web RabbitMQ : http://localhost:15672  
-Identifiants : guest / guest
+
+Identifiants : user
+Mot de passe : password
 
 ### Lancement des composants
 
 1. **Démarrer le producteur** (client d'entrée) :
-npm run dev InputProducer
+npm run dev producer add
 
 2. **Démarrer les workers** (traitement des opérations) :
 npm run dev consumers
