@@ -19,16 +19,16 @@ Ce projet simule un système de calcul distribué basé sur RabbitMQ. Des client
 - Node.js
 - Docker et Docker Compose
 
-Pour run rabbitmq en local, lancer la commande :
+Pour run rabbitmq en local, lancez la commande :
 
 ```bash
 docker composer up -d
 ```
-changer dans le fichier src/utils/connection_rabbitmq :
+changez dans le fichier src/utils/connection_rabbitmq :
 ```javascript
 const rabbitmq_url = process.env.RABBITMQ_URL_DEV;
 ```
-rajouter dans votre .env l'url adapté :
+rajoutez dans votre .env l'url adapté :
 ```env
 RABBITMQ_URL_DEV= amqp://user:password@localhost:5672
 ## ou 
