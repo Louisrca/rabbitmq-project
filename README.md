@@ -34,8 +34,8 @@ npm install
 
 Interface Web RabbitMQ : http://localhost:15672  
 
-Identifiants : user
-Mot de passe : password
+- Identifiants : user
+- Mot de passe : password
 
 ### Lancement des composants
 Ouvrir 3 terminaux, afin de pouvoir lancer les 3 instances de rabbitmq en simultané.
