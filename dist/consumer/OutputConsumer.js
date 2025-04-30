@@ -16,7 +16,7 @@ const connection_rabbitmq_1 = __importDefault(require("../utils/connection_rabbi
 function OutputConsumer() {
     return __awaiter(this, void 0, void 0, function* () {
         const channel = yield (0, connection_rabbitmq_1.default)();
-        const queue_resultat = "ResultatQueueAddition";
+        const queue_resultat = "ResultQueue";
         try {
             yield channel.assertQueue(queue_resultat, { durable: true });
             channel.consume(queue_resultat, (message) => {

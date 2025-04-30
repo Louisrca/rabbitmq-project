@@ -2,11 +2,11 @@ import amqtplib from "amqplib";
 
 const rabbitmq_url = "amqp://user:password@localhost:5672";
 
-async function receive() {
+async function SubWorker() {
   const connection = await amqtplib.connect(rabbitmq_url);
   const channel = await connection.createChannel();
-  const queue_requete = "operationQueue";
-  const queue_resultat = "ResultatQueue";
+  const queue_requete = "operationQueueSub";
+  const queue_resultat = "ResultQueue";
   const exchange = "operationExchange";
 
   await channel.assertExchange(exchange, "topic", { durable: true });
@@ -44,4 +44,4 @@ async function receive() {
     console.log("Le Worker à fait son taff");
   });
 }
-export default receive;
+export default SubWorker;

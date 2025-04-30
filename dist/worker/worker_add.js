@@ -13,11 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const connection_rabbitmq_1 = __importDefault(require("../utils/connection_rabbitmq"));
-function receive() {
+function AddWorker() {
     return __awaiter(this, void 0, void 0, function* () {
         const channel = yield (0, connection_rabbitmq_1.default)();
-        const queue_requete = "additionnalOperationQueue";
-        const queue_resultat = "ResultatQueue";
+        const queue_requete = "operationQueueAdd";
+        const queue_resultat = "ResultQueue";
         const exchange = "operationExchange";
         try {
             yield channel.assertExchange(exchange, "topic", { durable: true });
@@ -51,5 +51,5 @@ function receive() {
         }
     });
 }
-exports.default = receive;
+exports.default = AddWorker;
 //# sourceMappingURL=worker_add.js.map

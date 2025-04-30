@@ -2,7 +2,7 @@ import connection_rabbitmq from "../utils/connection_rabbitmq";
 
 async function OutputConsumer() {
   const channel = await connection_rabbitmq();
-  const queue_resultat = "ResultatQueueAddition";
+  const queue_resultat = "ResultQueue";
 
   try {
     await channel.assertQueue(queue_resultat, { durable: true });

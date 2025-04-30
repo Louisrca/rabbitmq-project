@@ -1,8 +1,8 @@
 import connection_rabbitmq from "../utils/connection_rabbitmq";
-async function receive() {
+async function MulWorker() {
   const channel = await connection_rabbitmq();
-  const queue_requete = "operationQueue";
-  const queue_resultat = "ResultatQueue";
+  const queue_requete = "operationQueueMul";
+  const queue_resultat = "ResultQueue";
   const exchange = "operationExchange";
 
   await channel.assertExchange(exchange, "topic", { durable: true });
@@ -40,4 +40,4 @@ async function receive() {
     console.log("Le Worker à fait son taff");
   });
 }
-export default receive;
+export default MulWorker;

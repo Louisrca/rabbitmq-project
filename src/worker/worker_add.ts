@@ -1,9 +1,9 @@
 import connection_rabbitmq from "../utils/connection_rabbitmq";
 
-async function receive() {
+async function AddWorker() {
   const channel = await connection_rabbitmq();
-  const queue_requete = "operationQueue";
-  const queue_resultat = "ResultatQueue";
+  const queue_requete = "operationQueueAdd";
+  const queue_resultat = "ResultQueue";
   const exchange = "operationExchange";
 
   try {
@@ -53,4 +53,4 @@ async function receive() {
   }
 }
 
-export default receive;
+export default AddWorker;

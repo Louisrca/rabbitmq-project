@@ -14,12 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const amqplib_1 = __importDefault(require("amqplib"));
 const rabbitmq_url = "amqp://user:password@localhost:5672";
-function receive() {
+function SubWorker() {
     return __awaiter(this, void 0, void 0, function* () {
         const connection = yield amqplib_1.default.connect(rabbitmq_url);
         const channel = yield connection.createChannel();
-        const queue_requete = "operationQueue";
-        const queue_resultat = "ResultatQueue";
+        const queue_requete = "operationQueueSub";
+        const queue_resultat = "ResultQueue";
         const exchange = "operationExchange";
         yield channel.assertExchange(exchange, "topic", { durable: true });
         yield channel.assertQueue(queue_requete, { durable: true });
@@ -47,5 +47,5 @@ function receive() {
         }));
     });
 }
-exports.default = receive;
+exports.default = SubWorker;
 //# sourceMappingURL=worker_sub.js.map
