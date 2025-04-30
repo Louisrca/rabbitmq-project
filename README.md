@@ -57,8 +57,34 @@ Interface Web RabbitMQ : [infoexpertise.hopto.org:15680](http://infoexpertise.ho
 Ouvrir 3 terminaux, afin de pouvoir lancer les 3 instances de rabbitmq en simultané.
 
 1. **Démarrer le producteur** (client d'entrée) :
+   Additionner
 ```bash
 npm run dev producer add
+```
+
+   Diviser
+```bash
+npm run dev producer div
+```
+
+   Soustraire
+```bash
+npm run dev producer sub
+```
+
+   Multiplier
+```bash
+npm run dev producer mul
+```
+
+   Tous
+```bash
+npm run dev producer all
+```
+
+   Aléatoire
+```bash
+npm run dev producer
 ```
 
 3. **Démarrer les workers** (traitement des opérations) :
