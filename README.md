@@ -32,7 +32,7 @@ cd rabbitmq-project
 npm install
 ```
 
-Interface Web RabbitMQ : http://localhost:15672  
+Interface Web RabbitMQ : infoexpertise.hopto.org:15680  
 
 - Identifiants : user
 - Mot de passe : password
